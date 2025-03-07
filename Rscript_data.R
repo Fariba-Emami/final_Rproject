@@ -26,6 +26,11 @@ sum(is.na(mtcars))
 
 #clean the data
 mtcars_cleaned <- na.omit(mtcars)
+#there is no missing data 
+
+
+
+
 
 
 #Transform at least one variable

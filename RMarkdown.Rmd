@@ -1,0 +1,115 @@
+---
+title: "README.md"
+author: "Fariba"
+date: "2025-03-07"
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+# Set global options for code chunks
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# mtcars Data Analysis Project
+
+In order to investigate the correlations between weight, horsepower, and fuel efficiency, this research examines the `mtcars` dataset. The objective is to use R and `ggplot2` for visualization in order to obtain insights about vehicle performance and fuel efficiency.
+
+## Dataset
+
+The `mtcars` dataset is a built-in dataset in R that contains information about 32 cars from the 1974 Motor Trend magazine. It includes 11 variables such as:
+
+- `mpg`: Miles per gallon (fuel efficiency)
+- `hp`: Horsepower
+- `wt`: Weight (1000 lbs)
+- `cyl`: Number of cylinders
+- And more.
+
+
+#clean the data
+#there is no missing data 
+```{r}
+install.packages("renv")
+install.packages("dplyr")
+install.packages("ggplot2")
+```
+```{r}
+library(dplyr)
+library(ggplot2)
+library(tidyverse)
+```
+
+
+```{r}
+is.na(mtcars)
+sum(is.na(mtcars))
+mtcars_cleaned <- na.omit(mtcars)
+```
+#Transform at least one variable
+#create a new column km_per_liter that converts miles per gallon (mpg) to kilometers per liter.
+# Convert mpg to km per liter (1 mpg ≈ 0.425 km/l)
+
+#creat a new colums
+```{r}
+mtcars$km_per_liter <- mtcars$mpg * 0.425
+```
+
+
+
+#Normalize a Feature
+#Normalize the hp (horsepower) column to have values between 0 and 1.
+# Normalize the hp column
+
+```{r}
+mtcars$hp_normalized <- (mtcars$hp - min(mtcars$hp)) / (max(mtcars$hp) - min(mtcars$hp))
+```
+
+```{r}
+summary(mtcars_cleaned)
+```
+
+```{r}
+summary(mtcars_cleaned)
+```
+
+
+
+## Key Findings
+
+1. **Fuel Efficiency**:
+   - The **Toyota Corolla** and **Fiat 128** have the highest fuel efficiency (over 30 mpg).
+   - The **Lincoln Continental** and **Cadillac Fleetwood** have the lowest fuel efficiency (less than 10 mpg).
+
+
+   
+```{r}
+ggplot(mtcars, aes(x = reorder(rownames(mtcars), mpg), y = mpg)) +
+    geom_bar(stat = "identity", fill = "pink") +
+    labs(title = "Fuel Efficiency by Car Model",
+         x = "Car Model",
+         y = "Miles per Gallon (mpg)") +
+    theme_minimal() +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+   
+ 2. **Correlation Between Horsepower and Weight**:
+   - There is a **positive correlation** between horsepower (`hp`) and weight (`wt`).
+   - Heavier cars tend to have higher horsepower but lower fuel efficiency.  
+   
+```{r}
+ggplot(mtcars, aes(x = wt, y = hp)) +
+    geom_point(color = "darkorange", size = 3) +
+    geom_smooth(method = "lm", color = "red", se = FALSE) +
+    labs(title = "Correlation Between Horsepower and Weight",
+         x = "Weight (1000 lbs)",
+         y = "Horsepower (hp)") +
+    theme_minimal()
+```
+   
+   Conclusion
+This analysis provides insights into the relationships between fuel efficiency, horsepower, and weight in the mtcars dataset. The visualizations highlight key trends, such as the positive correlation between horsepower and weight, and the fuel efficiency of different car models.
+
+
+
