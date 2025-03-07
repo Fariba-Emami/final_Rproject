@@ -47,6 +47,34 @@ summary(mtcars_cleaned)
 
 #Part 4: Data Visualization & Insights
 
+#Plot 1: Fuel Efficiency (mpg) by Car Model
+#This plot shows the fuel efficiency (miles per gallon) for each car model.
+
+
+ggplot(mtcars, aes(x = reorder(rownames(mtcars), mpg), y = mpg)) +
+    geom_bar(stat = "identity", fill = "pink") +
+    labs(title = "Fuel Efficiency by Car Model",
+         x = "Car Model",
+         y = "Miles per Gallon (mpg)") +
+    theme_minimal() +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1))
+# Insights
+# 1. The Toyota Corolla and Fiat 128 have the highest fuel efficiency.
+
+
+#Plot 2: Correlation Between Horsepower (hp) and Weight (wt)
+#This scatter plot explores the relationship between horsepower and weight.
+
+ggplot(mtcars, aes(x = wt, y = hp)) +
+    geom_point(color = "darkorange", size = 3) +
+    geom_smooth(method = "lm", color = "red", se = FALSE) +
+    labs(title = "Correlation Between Horsepower and Weight",
+         x = "Weight (1000 lbs)",
+         y = "Horsepower (hp)") +
+    theme_minimal()
+# Insights
+# 1. There is a positive correlation between horsepower and weight.
+
 
 
 
